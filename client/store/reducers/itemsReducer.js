@@ -10,7 +10,7 @@ const gotAllItems = items => ({
 })
 
 export const getAllItems = () => async dispatch => {
-  const {data} = await axios.get('https://dew-backend.herokuapp.com/api/items')
+  const {data} = await axios.get('http://localhost:3000/api/items')
   dispatch(gotAllItems(data))
 }
 
@@ -23,7 +23,7 @@ const gotSingleItem = item => ({
 
 export const getSingleItem = id => async dispatch => {
   const {data} = await axios.get(
-    `https://dew-backend.herokuapp.com/api/items/${id}`
+    `https://http://localhost:3000/api/items/${id}`
   )
   dispatch(gotSingleItem(data))
 }
