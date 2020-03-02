@@ -1,17 +1,12 @@
 const path = require('path')
 const express = require('express')
 const morgan = require('morgan')
-const {createProxyMiddleware} = require('http-proxy-middleware')
 
 const app = express()
 
 app.use(morgan('dev'))
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
-app.use(
-  '/api/**',
-  createProxyMiddleware({target: 'http://localhost:3000', changeOrigin: true})
-)
 
 app.use(express.static(path.join(__dirname, '..', 'public')))
 

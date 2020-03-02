@@ -11,7 +11,6 @@ class Routes extends Component {
   }
 
   render() {
-    console.log(this.props)
     return (
       <Router>
         <Navbar />
@@ -24,12 +23,8 @@ class Routes extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  state
-})
-
 const mapDispatchToProps = dispatch => ({
   getAllItems: () => dispatch(getAllItems())
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Routes)
+export default connect(null, mapDispatchToProps)(Routes)

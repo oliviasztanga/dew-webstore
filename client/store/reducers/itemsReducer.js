@@ -38,7 +38,7 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case GOT_ALL_ITEMS:
-      return {...state, items: action.items}
+      return {...state, allItems: action.items}
     case GOT_SELECTED_ITEM:
       return {...state, selectedItem: action.item}
     default:
