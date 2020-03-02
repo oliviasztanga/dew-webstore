@@ -22,11 +22,15 @@ const gotSingleItem = item => ({
 })
 
 export const getSingleItem = id => async dispatch => {
-  const {data} = await axios.get(
-    `https://http://localhost:3000/api/items/${id}`
-  )
+  const {data} = await axios.get(`http://localhost:3000/api/items/${id}`)
   dispatch(gotSingleItem(data))
 }
+
+const REMOVE_SELECTED_ITEM = 'REMOVE_SELECTED_ITEM'
+
+export const removeSelectedItem = () => ({
+  type: REMOVE_SELECTED_ITEM
+})
 
 // REDUCER
 
@@ -41,6 +45,8 @@ export default (state = initialState, action) => {
       return {...state, allItems: action.items}
     case GOT_SELECTED_ITEM:
       return {...state, selectedItem: action.item}
+    case REMOVE_SELECTED_ITEM:
+      return {...state, selectedItem: {}}
     default:
       return state
   }

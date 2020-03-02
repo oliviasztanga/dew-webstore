@@ -3,9 +3,11 @@ import thunkMiddleware from 'redux-thunk'
 import {createLogger} from 'redux-logger'
 
 import itemsReducer from './reducers/itemsReducer'
+import cartReducer from './reducers/cartReducer'
 
 const reducer = combineReducers({
-  itemsReducer
+  itemsReducer,
+  cartReducer
 })
 
 const store = createStore(

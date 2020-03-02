@@ -14,11 +14,13 @@ const ItemsList = props => {
       category === 'all'
         ? props.allItems
         : props.allItems.filter(item => item.item.category === category)
-    console.log('category', category)
-    console.log('props', props)
     return (
       <div>
-        {/* {itemsToList.length ? itemsToList.map(item => <ItemCard key={item.id} item={item} />) : <p>Seems we're out of stock!</p>} */}
+        {itemsToList.length ? (
+          itemsToList.map(item => <ItemCard key={item.id} item={item} />)
+        ) : (
+          <p>Seems we're out of stock!</p>
+        )}
       </div>
     )
   } else return <NotFound />
