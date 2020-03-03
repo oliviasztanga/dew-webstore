@@ -10,8 +10,12 @@ const gotAllItems = items => ({
 })
 
 export const getAllItems = () => async dispatch => {
-  const {data} = await axios.get('http://localhost:3000/api/items')
-  dispatch(gotAllItems(data))
+  try {
+    const {data} = await axios.get('http://localhost:3000/api/items')
+    dispatch(gotAllItems(data))
+  } catch (error) {
+    console.error(error)
+  }
 }
 
 const GOT_SELECTED_ITEM = 'GOT_SELECTED_ITEM'
@@ -22,8 +26,12 @@ const gotSingleItem = item => ({
 })
 
 export const getSingleItem = id => async dispatch => {
-  const {data} = await axios.get(`http://localhost:3000/api/items/${id}`)
-  dispatch(gotSingleItem(data))
+  try {
+    const {data} = await axios.get(`http://localhost:3000/api/items/${id}`)
+    dispatch(gotSingleItem(data))
+  } catch (error) {
+    console.error(error)
+  }
 }
 
 const REMOVE_SELECTED_ITEM = 'REMOVE_SELECTED_ITEM'

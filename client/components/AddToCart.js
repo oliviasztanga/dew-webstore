@@ -1,17 +1,27 @@
-import React from 'react'
-import {Link} from 'react-router-dom'
+import React, {Component} from 'react'
+import {connect} from 'react-redux'
 
-const ItemCard = props => {
-  return (
-    <div>
-      <Link to={`/item/${props.item.id}`}>
-        <img src={`http://localhost:3000/images/${props.item.photos[0]}`} />
-        <h3>{props.item.color}</h3>
-        <h4>{props.item.item.name}</h4>
-        <p>{props.item.price}</p>
-      </Link>
-    </div>
-  )
+class AddToCart extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      stock: 0
+    }
+  }
+
+  componentDidMount() {}
+
+  handleChange(event) {}
+
+  handleSubmit(event) {
+    event.preventDefault()
+  }
+
+  render() {
+    return <div />
+  }
 }
 
-export default ItemCard
+const mapDispatchToProps = dispatch => ({})
+
+export default connect(null, mapDispatchToProps)(AddToCart)

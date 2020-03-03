@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
+// import {Login, Signup} from './index'
 
 export default class Home extends Component {
   render() {
-    return <p> HELLO WORLD </p>
+    return <div>Hey der!</div>
   }
 }

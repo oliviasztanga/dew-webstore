@@ -1,5 +1,6 @@
 export {default as Home} from './Home'
 export {default as Navbar} from './Navbar'
+export {Login, Signup} from './AuthForm'
 export {default as NotFound} from './NotFound'
 export {default as ItemsList} from './ItemsList'
 export {default as ItemCard} from './ItemCard'

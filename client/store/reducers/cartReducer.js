@@ -2,17 +2,17 @@ import axios from 'axios'
 
 // ACTIONS
 
-const GOT_CART = 'GOT_CART'
+// const GOT_CART = 'GOT_CART'
 
-const gotCart = cart => ({
-  type: GOT_CART,
-  cart
-})
+// const gotCart = cart => ({
+//   type: GOT_CART,
+//   cart
+// })
 
-export const getCart = () => async dispatch => {
-  const {data} = await axios.get('https://dew-backend.herokuapp.com/api/cart')
-  dispatch(gotCart(data))
-}
+// export const getCart = () => async dispatch => {
+//   const {data} = await axios.get('https://dew-backend.herokuapp.com/api/cart')
+//   dispatch(gotCart(data))
+// }
 
 const ADD_ITEM = 'ADD_ITEM'
 
@@ -26,19 +26,24 @@ export const addItem = () => async dispatch => {
   dispatch(addedItem(data))
 }
 
+const UPDATE_TOTAL = 'UPDATE_TOTAL'
+
+const updateTotal = () => ({
+  type: UPDATE_TOTAL
+})
+
 // REDUCER
 
 const initialState = {
-  cart: []
+  cart: [],
+  total: 0
 }
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case GOT_CART:
-      return {...state, cart: action.cart}
+    // case GOT_CART:
+    //   return {...state, cart: action.cart}
     case ADD_ITEM:
-      // if the item already exists, up quantity,
-      // but if it doesn't, add for first time
       return {...state, cart: [...action.cart]}
     default:
       return state
