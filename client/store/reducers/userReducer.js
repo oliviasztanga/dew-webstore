@@ -1,8 +1,10 @@
 import axios from 'axios'
 
-const defaultUser = {}
+const url = 'https://dew-backend.herokuapp.com'
 
 // ACTIONS
+
+const defaultUser = {}
 
 const GOT_USER = 'GOT_USER'
 
@@ -11,72 +13,70 @@ const gotUser = user => ({
   user
 })
 
-const getUser = () => async dispatch => {
+export const login = (email, password) => async dispatch => {
+  let user
+
   try {
-    const {data} = await axios.get('http://localhost:3000/auth/me')
-    console.log(data)
+    const {data} = await axios.post(`${url}/auth/login`, {email, password})
+    user = data
+  } catch (error) {
+    return dispatch(gotUser({error}))
+  }
+
+  try {
+    dispatch(gotUser(user))
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+export const me = () => async dispatch => {
+  try {
+    const {data} = await axios.get(`${url}/auth/me`)
     dispatch(gotUser(data || defaultUser))
   } catch (error) {
     console.error(error)
   }
 }
 
-export const login = (email, password, method) => async dispatch => {
-  let user
-  try {
-    const {data} = await axios.post(`http://localhost:3000/auth/${method}`, {
-      email,
-      password
-    })
-    user = data
-    console.log(user)
-  } catch (authError) {
-    return dispatch(getUser({error: authError}))
-  }
+const CREATED_USER = 'CREATED_USER'
 
+const createdUser = user => ({
+  type: CREATED_USER,
+  user
+})
+
+export const signup = (
+  firstName,
+  lastName,
+  email,
+  password
+) => async dispatch => {
   try {
-    dispatch(getUser(user))
-    //history.push('/')
-  } catch (dispatchOrHistoryErr) {
-    console.error(dispatchOrHistoryErr)
+    const {data} = await axios.post(`${url}/auth/signup`, {
+      email,
+      password,
+      firstName,
+      lastName
+    })
+    dispatch(createdUser(data))
+  } catch (error) {
+    return dispatch(gotUser({error}))
   }
 }
 
-const REMOVE_USER = 'REMOVE_USER'
+const REMOVED_USER = 'REMOVED_USER'
 
 const removeUser = () => ({
-  type: REMOVE_USER
+  type: REMOVED_USER
 })
 
 export const logout = () => async dispatch => {
   try {
-    await axios.post('http://localhost:3000/auth/logout')
+    await axios.post(`${url}/auth/logout`)
     dispatch(removeUser())
-    history.push('/login')
   } catch (err) {
     console.error(err)
-  }
-}
-
-const CREATED_USER = 'CREATED_USER'
-
-const createdUser = newUser => ({
-  type: CREATED_USER,
-  newUser
-})
-
-export const createUser = newUser => {
-  return async dispatch => {
-    try {
-      const {data} = await axios.post(
-        'http://localhost:3000/auth/signup',
-        newUser
-      )
-      console.log(data)
-      dispatch(createdUser(data))
-    } catch (err) {
-      console.log('User was not created. See: ', err)
-    }
   }
 }
 
@@ -89,8 +89,8 @@ export default (state = initialState, action) => {
     case GOT_USER:
       return action.user
     case CREATED_USER:
-      return action.newUser
-    case REMOVE_USER:
+      return action.user
+    case REMOVED_USER:
       return defaultUser
     default:
       return state

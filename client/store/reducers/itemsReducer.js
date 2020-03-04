@@ -1,5 +1,7 @@
 import axios from 'axios'
 
+const url = 'https://dew-backend.herokuapp.com'
+
 // ACTIONS
 
 const GOT_ALL_ITEMS = 'GOT_ALL_ITEMS'
@@ -11,7 +13,7 @@ const gotAllItems = items => ({
 
 export const getAllItems = () => async dispatch => {
   try {
-    const {data} = await axios.get('http://localhost:3000/api/items')
+    const {data} = await axios.get(`${url}/api/items`)
     dispatch(gotAllItems(data))
   } catch (error) {
     console.error(error)
@@ -27,7 +29,7 @@ const gotSingleItem = item => ({
 
 export const getSingleItem = id => async dispatch => {
   try {
-    const {data} = await axios.get(`http://localhost:3000/api/items/${id}`)
+    const {data} = await axios.get(`${url}/api/items/${id}`)
     dispatch(gotSingleItem(data))
   } catch (error) {
     console.error(error)

@@ -17,7 +17,9 @@ class SingleItem extends Component {
       return (
         <div>
           <img
-            src={`http://localhost:3000/images/${this.props.item.photos[0]}`}
+            src={`https://dew-backend.herokuapp.com/${
+              this.props.item.photos[0]
+            }`}
           />
           <h3>{this.props.item.color}</h3>
           <h4>{this.props.item.item.name}</h4>
