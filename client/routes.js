@@ -10,10 +10,12 @@ import {
   ItemsList,
   SingleItem
 } from './components/index'
+import {me} from './store/reducers/userReducer'
 import {getAllItems} from './store/reducers/itemsReducer'
 
 class Routes extends Component {
   componentDidMount() {
+    this.props.getLogInData()
     this.props.getAllItems()
   }
 
@@ -33,8 +35,13 @@ class Routes extends Component {
   }
 }
 
+const mapStateToProps = state => ({
+  isLoggedIn: !!state.user.id
+})
+
 const mapDispatchToProps = dispatch => ({
+  getLogInData: () => dispatch(me()),
   getAllItems: () => dispatch(getAllItems())
 })
 
-export default connect(null, mapDispatchToProps)(Routes)
+export default connect(mapStateToProps, mapDispatchToProps)(Routes)

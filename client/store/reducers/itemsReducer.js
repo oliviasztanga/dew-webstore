@@ -1,6 +1,7 @@
 import axios from 'axios'
 
-const url = 'https://dew-backend.herokuapp.com'
+// const url = 'http://dew-backend.herokuapp.com'
+const url = 'http://localhost:3000'
 
 // ACTIONS
 
