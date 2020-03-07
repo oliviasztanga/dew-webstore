@@ -8,7 +8,6 @@ const ItemsList = props => {
   const isFound = ['all', 'eyes', 'lips', 'face', 'lashes & brows'].includes(
     category
   )
-
   if (isFound) {
     const itemsToList =
       category === 'all'
@@ -16,11 +15,7 @@ const ItemsList = props => {
         : props.allItems.filter(item => item.item.category === category)
     return (
       <div>
-        {itemsToList.length ? (
-          itemsToList.map(item => <ItemCard key={item.id} item={item} />)
-        ) : (
-          <p>Seems we're out of stock!</p>
-        )}
+        {itemsToList.map(item => <ItemCard key={item.id} item={item} />)}
       </div>
     )
   } else return <NotFound />

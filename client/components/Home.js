@@ -3,6 +3,6 @@ import React, {Component} from 'react'
 
 export default class Home extends Component {
   render() {
-    return <div>Hey der!</div>
+    return <div>Oooooh let's make an aesthetic home page.</div>
   }
 }

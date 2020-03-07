@@ -8,7 +8,8 @@ import {
   Signup,
   Navbar,
   ItemsList,
-  SingleItem
+  SingleItem,
+  Cart
 } from './components/index'
 import {me} from './store/reducers/userReducer'
 import {getAllItems} from './store/reducers/itemsReducer'
@@ -27,6 +28,7 @@ class Routes extends Component {
           <Route exact path="/" component={Home} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
+          <Route exact path="/cart" component={Cart} />
           <Route exact path="/:category" component={ItemsList} />
           <Route exact path="/item/:id" component={SingleItem} />
         </Switch>

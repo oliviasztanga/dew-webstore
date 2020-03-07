@@ -13,6 +13,7 @@ const ItemCard = props => {
         <h3>{props.item.color}</h3>
         <h4>{props.item.item.name}</h4>
         <p>{props.item.price}</p>
+        <p>{props.item.quantity ? props.quantity : null}</p>
       </Link>
     </div>
   )
