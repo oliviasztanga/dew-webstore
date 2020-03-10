@@ -1,7 +1,7 @@
 # Grace Shopper Project - dew web
 A fully functional e-commerce web application built using React and Redux. [Backend](https://github.com/oliviasztanga/dew-backend) built with Express, Passport, Sequelize, and PostgreSQL. Integrates OAuth.
 
-## Technolgies
+## Technologies
 Javscript, React, Redux, Express, Sequelize, PostgreSQL, Heroku
 
 ## Related Repos
