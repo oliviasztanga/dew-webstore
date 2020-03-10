@@ -11,6 +11,7 @@ Javscript, React, Redux, Express, Sequelize, PostgreSQL, Heroku
 
 ```
 // assuming backend installed and running locally
+// see dew-backend repo for instructions
 
 // install required libraries
 npm install 
