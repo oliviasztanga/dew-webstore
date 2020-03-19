@@ -1,5 +1,6 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
+import {CartControls} from './index'
 
 const ItemCard = props => {
   return (
@@ -15,6 +16,7 @@ const ItemCard = props => {
         <p>{props.item.price}</p>
         <p>{props.item.quantity ? props.quantity : null}</p>
       </Link>
+      <CartControls itemId={props.item.id} />
     </div>
   )
 }

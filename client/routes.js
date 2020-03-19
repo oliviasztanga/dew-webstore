@@ -12,11 +12,13 @@ import {
   Cart
 } from './components/index'
 import {me} from './store/reducers/userReducer'
+import {getCart} from './store/reducers/cartReducer'
 import {getAllItems} from './store/reducers/itemsReducer'
 
 class Routes extends Component {
   componentDidMount() {
     this.props.getLogInData()
+    this.props.getCart()
     this.props.getAllItems()
   }
 
@@ -43,6 +45,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getLogInData: () => dispatch(me()),
+  getCart: () => dispatch(getCart()),
   getAllItems: () => dispatch(getAllItems())
 })
 

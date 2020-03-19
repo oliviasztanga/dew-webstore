@@ -84,11 +84,23 @@ export default (state = initialState, action) => {
     case GOT_CART:
       return action.cartData
     case ADDED_ITEM:
-      return action.cartData
+      return {
+        ...state,
+        cart: action.cartData.cart,
+        total: action.cartData.total
+      }
     case EDITED_ITEM:
-      return action.cartData
+      return {
+        ...state,
+        cart: action.cartData.cart,
+        total: action.cartData.total
+      }
     case REMOVED_ITEM:
-      return action.cartData
+      return {
+        ...state,
+        cart: action.cartData.cart,
+        total: action.cartData.total
+      }
     case CHECKED_OUT:
       return initialState
     default:
