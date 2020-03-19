@@ -3,106 +3,114 @@ import axios from 'axios'
 // const url = 'http://dew-backend.herokuapp.com'
 const url = 'http://localhost:3000'
 
-// ACTIONS
+// INITIAL STATE
+const initialState = {
+  cart: [],
+  total: 0,
+  confirmationNumber: ''
+}
 
+// ACTION TYPES
 const GOT_CART = 'GOT_CART'
+const UPDATE_TOTAL = 'UPDATE_TOTAL'
+const ADDED_OR_EDITED_LINEITEM = 'ADDED_OR_EDITED_LINEITEM'
+const REMOVED_LINEITEM = 'REMOVED_LINEITEM'
+const CHECKED_OUT = 'CHECKED_OUT'
+const REMOVE_CONFIRMATION_NUMBER = 'REMOVE_CONFIRMATION_NUMBER'
 
-const gotCart = cartData => ({
+// ACTION CREATORS
+
+const gotCart = cart => ({
   type: GOT_CART,
-  cartData
+  cart
 })
+
+export const updateTotal = () => ({
+  type: UPDATE_TOTAL
+})
+
+const addedOrEditedLineItem = lineItem => ({
+  type: ADDED_OR_EDITED_LINEITEM,
+  lineItem
+})
+
+const removedLineItem = lineItem => ({
+  type: REMOVED_LINEITEM,
+  lineItem
+})
+
+const checkedOut = confirmationNumber => ({
+  type: CHECKED_OUT,
+  confirmationNumber
+})
+
+export const removeConfirmationNumber = () => ({
+  type: REMOVE_CONFIRMATION_NUMBER
+})
+
+// THUNKS
 
 export const getCart = () => async dispatch => {
   const {data} = await axios.get(`${url}/api/cart`)
   dispatch(gotCart(data))
 }
 
-const ADDED_ITEM = 'ADD_ITEM'
-
-const addedItem = cartData => ({
-  type: ADDED_ITEM,
-  cartData
-})
-
-export const addItem = (itemId, quantity) => async dispatch => {
-  const {data} = await axios.post(`${url}/api/cart`, {itemId, quantity})
-  dispatch(addedItem(data))
-}
-
-const EDITED_ITEM = 'EDITED_ITEM'
-
-const editedItem = cartData => ({
-  type: EDITED_ITEM,
-  cartData
-})
-
-export const editItem = (itemId, quantity) => async dispatch => {
-  const {data} = await axios.put(`${url}/api/cart`, {itemId, quantity})
-  dispatch(editedItem(data))
-}
-
-const REMOVED_ITEM = 'REMOVED_ITEM'
-
-const removedItem = cartData => ({
-  type: REMOVED_ITEM,
-  cartData
-})
-
-export const removeItem = (itemId, clearAll) => async dispatch => {
-  const {data} = await axios.delete(`${url}/api/cart`, {itemId, clearAll})
-  dispatch(removedItem(data))
-}
-
-const CHECKED_OUT = 'CHECKED_OUT'
-
-const checkedOut = () => ({
-  type: CHECKED_OUT
-})
-
-export const checkOut = (
-  recipientFirstName,
-  recipientLastName,
-  recipientAddress
+export const addOrEditLineItem = (
+  orderId,
+  optionId,
+  quantity
 ) => async dispatch => {
-  const {data} = await axios.post(`${url}/api/cart/checkout`, {
-    recipientFirstName,
-    recipientLastName,
-    recipientAddress
+  const {data} = await axios.put(`${url}/api/cart`, {
+    orderId,
+    optionId,
+    quantity
   })
+  dispatch(addedOrEditedLineItem(data))
+}
+
+export const removeLineItem = (orderId, optionId) => async dispatch => {
+  const {data} = await axios.delete(`${url}/api/cart`, {orderId, optionId})
+  dispatch(removedLineItem(data))
+}
+
+// GOING TO NEED TO ADD FORM DATA HERE
+export const checkout = orderId => async dispatch => {
+  const {data} = await axios.post(`${url}/api/cart/checkout`, {orderId})
   dispatch(checkedOut(data))
 }
 
 // REDUCER
 
-const initialState = {
-  cart: [],
-  total: 0
-}
-
 export default (state = initialState, action) => {
   switch (action.type) {
     case GOT_CART:
-      return action.cartData
-    case ADDED_ITEM:
-      return {
-        ...state,
-        cart: action.cartData.cart,
-        total: action.cartData.total
-      }
-    case EDITED_ITEM:
-      return {
-        ...state,
-        cart: action.cartData.cart,
-        total: action.cartData.total
-      }
-    case REMOVED_ITEM:
-      return {
-        ...state,
-        cart: action.cartData.cart,
-        total: action.cartData.total
-      }
+      return {...state, cart: action.cart}
+
+    case UPDATE_TOTAL: {
+      let cart = [...state.cart]
+      const total = cart.reduce((sum, lineItem) => sum + lineItem.subtotal)
+      return {...state, total}
+    }
+
+    case ADDED_OR_EDITED_LINEITEM: {
+      let cart = [...state.cart]
+      const searchIdx = cart.findIndex(el => el.id === action.lineItem.id)
+      if (searchIdx) cart[searchIdx] = action.lineItem
+      else cart.push(action.lineItem)
+      return {...state, cart}
+    }
+
+    case REMOVED_LINEITEM: {
+      let cart = state.cart.filter(el => el.id !== action.lineItem.id)
+      return {...state, cart}
+    }
+
     case CHECKED_OUT:
+      return {...initialState, confirmationNumber: action.confirmationNumber}
+
+    case REMOVE_CONFIRMATION_NUMBER:
       return initialState
+
     default:
       return state
   }
