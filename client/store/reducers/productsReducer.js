@@ -3,14 +3,33 @@ import axios from 'axios'
 // const url = 'http://dew-backend.herokuapp.com'
 const url = 'http://localhost:3000'
 
-// ACTIONS
+// INITIAL STATE
+const initialState = {
+  allItems: [],
+  selectedItem: {}
+}
 
+// ACTION TYPES
 const GOT_ALL_ITEMS = 'GOT_ALL_ITEMS'
+const GOT_SELECTED_ITEM = 'GOT_SELECTED_ITEM'
+const REMOVE_SELECTED_ITEM = 'REMOVE_SELECTED_ITEM'
 
+// ACTION CREATORS
 const gotAllItems = items => ({
   type: GOT_ALL_ITEMS,
   items
 })
+
+const gotSingleItem = item => ({
+  type: GOT_SELECTED_ITEM,
+  item
+})
+
+export const removeSelectedItem = () => ({
+  type: REMOVE_SELECTED_ITEM
+})
+
+// THUNKS
 
 export const getAllItems = () => async dispatch => {
   try {
@@ -21,13 +40,6 @@ export const getAllItems = () => async dispatch => {
   }
 }
 
-const GOT_SELECTED_ITEM = 'GOT_SELECTED_ITEM'
-
-const gotSingleItem = item => ({
-  type: GOT_SELECTED_ITEM,
-  item
-})
-
 export const getSingleItem = id => async dispatch => {
   try {
     const {data} = await axios.get(`${url}/api/items/${id}`)
@@ -37,18 +49,7 @@ export const getSingleItem = id => async dispatch => {
   }
 }
 
-const REMOVE_SELECTED_ITEM = 'REMOVE_SELECTED_ITEM'
-
-export const removeSelectedItem = () => ({
-  type: REMOVE_SELECTED_ITEM
-})
-
 // REDUCER
-
-const initialState = {
-  allItems: [],
-  selectedItem: {}
-}
 
 export default (state = initialState, action) => {
   switch (action.type) {

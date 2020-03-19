@@ -3,12 +3,12 @@ import thunkMiddleware from 'redux-thunk'
 import {createLogger} from 'redux-logger'
 
 import userReducer from './reducers/userReducer'
-import itemsReducer from './reducers/itemsReducer'
+import productsReducer from './reducers/productsReducer'
 import cartReducer from './reducers/cartReducer'
 
 const reducer = combineReducers({
   user: userReducer,
-  itemsReducer,
+  productsReducer,
   cartReducer
 })
 
