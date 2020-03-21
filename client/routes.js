@@ -7,19 +7,18 @@ import {
   Login,
   Signup,
   Navbar,
-  ItemsList,
-  SingleItem,
-  Cart
+  AllProducts,
+  SingleProduct
+  // Cart
 } from './components/index'
+
 import {me} from './store/reducers/userReducer'
-import {getCart} from './store/reducers/cartReducer'
-import {getAllItems} from './store/reducers/itemsReducer'
+import {getAllProducts} from './store/reducers/productsReducer'
 
 class Routes extends Component {
   componentDidMount() {
     this.props.getLogInData()
-    this.props.getCart()
-    this.props.getAllItems()
+    this.props.getAllProducts()
   }
 
   render() {
@@ -30,9 +29,9 @@ class Routes extends Component {
           <Route exact path="/" component={Home} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
-          <Route exact path="/cart" component={Cart} />
-          <Route exact path="/:category" component={ItemsList} />
-          <Route exact path="/item/:id" component={SingleItem} />
+          {/* <Route exact path="/cart" component={Cart} /> */}
+          <Route exact path="/:category" component={AllProducts} />
+          <Route exact path="/item/:id" component={SingleProduct} />
         </Switch>
       </Router>
     )
@@ -44,9 +43,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  getLogInData: () => dispatch(me()),
-  getCart: () => dispatch(getCart()),
-  getAllItems: () => dispatch(getAllItems())
+  getLogInData: () => dispatch(me())
+  // getAllProducts: () => dispatch(getAllProducts())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Routes)

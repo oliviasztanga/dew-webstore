@@ -1,11 +1,10 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
-import {CartControls} from './index'
 
-const ItemCard = props => {
+const ProductCard = props => {
   return (
     <div>
-      <Link to={`/item/${props.item.id}`}>
+      {/* <Link to={`/item/${props.item.id}`}>
         <img
           src={`https://dew-backend.herokuapp.com/images/${
             props.item.photos[0]
@@ -15,10 +14,9 @@ const ItemCard = props => {
         <h4>{props.item.item.name}</h4>
         <p>{props.item.price}</p>
         <p>{props.item.quantity ? props.quantity : null}</p>
-      </Link>
-      <CartControls itemId={props.item.id} />
+      </Link> */}
     </div>
   )
 }
 
-export default ItemCard
+export default ProductCard

@@ -1,15 +1,15 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 
-import {getSingleItem, removeSelectedItem} from '../store/reducers/itemsReducer'
+// import {getSingleItem, removeSelectedItem} from '../store/reducers/productsReducer'
 
-class SingleItem extends Component {
+class SingleProduct extends Component {
   componentDidMount() {
-    this.props.getSingleItem(this.props.match.params.id)
+    // this.props.getSingleItem(this.props.match.params.id)
   }
 
   componentWillUnmount() {
-    this.props.removeSelectedItem()
+    // this.props.removeSelectedItem()
   }
 
   render() {
@@ -31,12 +31,12 @@ class SingleItem extends Component {
 }
 
 const mapStateToProps = state => ({
-  item: state.itemsReducer.selectedItem
+  // item: state.itemsReducer.selectedItem
 })
 
 const mapDispatchToProps = dispatch => ({
-  getSingleItem: id => dispatch(getSingleItem(id)),
-  removeSelectedItem: () => dispatch(removeSelectedItem())
+  // getSingleItem: id => dispatch(getSingleItem(id)),
+  // removeSelectedItem: () => dispatch(removeSelectedItem())
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(SingleItem)
+export default connect(mapStateToProps, mapDispatchToProps)(SingleProduct)

@@ -5,45 +5,45 @@ const url = 'http://localhost:3000'
 
 // INITIAL STATE
 const initialState = {
-  allItems: [],
-  selectedItem: {}
+  allProducts: [],
+  selectedProduct: {}
 }
 
 // ACTION TYPES
-const GOT_ALL_ITEMS = 'GOT_ALL_ITEMS'
-const GOT_SELECTED_ITEM = 'GOT_SELECTED_ITEM'
-const REMOVE_SELECTED_ITEM = 'REMOVE_SELECTED_ITEM'
+const GOT_ALL_PRODUCTS = 'GOT_ALL_PRODUCTS'
+const GOT_SELECTED_PRODUCT = 'GOT_SELECTED_PRODUCT'
+const REMOVE_SELECTED_PRODUCT = 'REMOVE_SELECTED_PRODUCT'
 
 // ACTION CREATORS
-const gotAllItems = items => ({
-  type: GOT_ALL_ITEMS,
-  items
+const gotAllProducts = products => ({
+  type: GOT_ALL_PRODUCTS,
+  products
 })
 
-const gotSingleItem = item => ({
-  type: GOT_SELECTED_ITEM,
-  item
+const gotSingleProduct = product => ({
+  type: GOT_SELECTED_PRODUCT,
+  product
 })
 
-export const removeSelectedItem = () => ({
-  type: REMOVE_SELECTED_ITEM
+export const removeSelectedProduct = () => ({
+  type: REMOVE_SELECTED_PRODUCT
 })
 
 // THUNKS
 
-export const getAllItems = () => async dispatch => {
+export const getAllProducts = () => async dispatch => {
   try {
-    const {data} = await axios.get(`${url}/api/items`)
-    dispatch(gotAllItems(data))
+    const {data} = await axios.get(`${url}/api/products`)
+    dispatch(gotAllProducts(data))
   } catch (error) {
     console.error(error)
   }
 }
 
-export const getSingleItem = id => async dispatch => {
+export const getSingleProduct = id => async dispatch => {
   try {
-    const {data} = await axios.get(`${url}/api/items/${id}`)
-    dispatch(gotSingleItem(data))
+    const {data} = await axios.get(`${url}/api/products/${id}`)
+    dispatch(gotSingleProduct(data))
   } catch (error) {
     console.error(error)
   }
@@ -53,12 +53,12 @@ export const getSingleItem = id => async dispatch => {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case GOT_ALL_ITEMS:
-      return {...state, allItems: action.items}
-    case GOT_SELECTED_ITEM:
-      return {...state, selectedItem: action.item}
-    case REMOVE_SELECTED_ITEM:
-      return {...state, selectedItem: {}}
+    case GOT_ALL_PRODUCTS:
+      return {...state, allProducts: action.products}
+    case GOT_SELECTED_PRODUCT:
+      return {...state, selectedProduct: action.product}
+    case REMOVE_SELECTED_PRODUCT:
+      return {...state, selectedProduct: {}}
     default:
       return state
   }
