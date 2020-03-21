@@ -11,6 +11,7 @@ const initialState = {}
 const GOT_USER = 'GOT_USER'
 const CREATED_USER = 'CREATED_USER'
 const REMOVED_USER = 'REMOVED_USER'
+const EDITED_USER = 'EDITED_USER'
 
 // ACTION CREATORS
 
@@ -26,6 +27,11 @@ const createdUser = user => ({
 
 const removedUser = () => ({
   type: REMOVED_USER
+})
+
+const editedUser = user => ({
+  type: EDITED_USER,
+  user
 })
 
 // THUNKS
@@ -79,8 +85,17 @@ export const logout = () => async dispatch => {
   try {
     await axios.post(`${url}/auth/logout`)
     dispatch(removedUser())
-  } catch (err) {
-    console.error(err)
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+export const editUser = formData => async dispatch => {
+  try {
+    const user = await axios.post(`${url}/api/profile/edit`, formData)
+    dispatch(editedUser(user))
+  } catch (error) {
+    console.error(error)
   }
 }
 
@@ -94,6 +109,8 @@ export default (state = initialState, action) => {
       return action.user
     case REMOVED_USER:
       return initialState
+    case EDITED_USER:
+      return action.user
     default:
       return state
   }

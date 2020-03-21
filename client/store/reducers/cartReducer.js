@@ -39,9 +39,10 @@ const removedLineItem = lineItem => ({
   lineItem
 })
 
-const checkedOut = confirmationNumber => ({
+const checkedOut = (confirmationNumber, cart) => ({
   type: CHECKED_OUT,
-  confirmationNumber
+  confirmationNumber,
+  cart
 })
 
 export const removeConfirmationNumber = () => ({
@@ -76,7 +77,8 @@ export const removeLineItem = (orderId, optionId) => async dispatch => {
 // GOING TO NEED TO ADD FORM DATA HERE
 export const checkout = orderId => async dispatch => {
   const {data} = await axios.post(`${url}/api/cart/checkout`, {orderId})
-  dispatch(checkedOut(data))
+  const [confirmationNumber, cart] = data
+  dispatch(checkedOut(confirmationNumber, cart))
 }
 
 // REDUCER
@@ -106,7 +108,11 @@ export default (state = initialState, action) => {
     }
 
     case CHECKED_OUT:
-      return {...initialState, confirmationNumber: action.confirmationNumber}
+      return {
+        ...initialState,
+        confirmationNumber: action.confirmationNumber,
+        cart: action.cart
+      }
 
     case REMOVE_CONFIRMATION_NUMBER:
       return initialState
