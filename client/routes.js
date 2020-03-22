@@ -9,7 +9,8 @@ import {
   Navbar,
   AllProducts,
   SingleProduct,
-  Cart
+  Cart,
+  Checkout
 } from './components/index'
 
 import {me} from './store/reducers/userReducer'
@@ -32,6 +33,7 @@ class Routes extends Component {
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
           <Route exact path="/cart" component={Cart} />
+          <Route exact path="/checkout" component={Checkout} />
           <Route exact path="/:category" component={AllProducts} />
           <Route exact path="/item/:id" component={SingleProduct} />
         </Switch>

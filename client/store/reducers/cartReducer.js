@@ -41,9 +41,9 @@ const editedLineItem = lineItem => ({
   lineItem
 })
 
-const removedLineItem = lineItem => ({
+const removedLineItem = lineItemId => ({
   type: REMOVED_LINEITEM,
-  lineItem
+  lineItemId
 })
 
 const checkedOut = (confirmationNumber, cart) => ({
@@ -80,15 +80,22 @@ export const editLineItem = (orderId, optionId, quantity) => async dispatch => {
   dispatch(updateTotal())
 }
 
-export const removeLineItem = (orderId, optionId) => async dispatch => {
-  const {data} = await axios.delete(`${url}/api/cart`, {orderId, optionId})
-  dispatch(removedLineItem(data))
-  dispatch(updateTotal())
+export const removeLineItem = (lineItemId) => async dispatch => {
+  const {status} = await axios.delete(`${url}/api/cart/${lineItemId}`)
+  if (status === 204) {
+    dispatch(removedLineItem(lineItemId))
+    dispatch(updateTotal())
+  }
 }
 
 // GOING TO NEED TO ADD FORM DATA HERE
-export const checkout = orderId => async dispatch => {
-  const {data} = await axios.post(`${url}/api/cart/checkout`, {orderId})
+export const checkout = (orderId, recipientFirstName, recipientLastName, recipientAddress) => async dispatch => {
+  const {data} = await axios.post(`${url}/api/cart/checkout`, {
+    orderId,
+    recipientFirstName,
+    recipientLastName,
+    recipientAddress
+  })
   const [confirmationNumber, cart] = data
   dispatch(checkedOut(confirmationNumber, cart))
 }
@@ -122,7 +129,7 @@ export default (state = initialState, action) => {
     }
 
     case REMOVED_LINEITEM: {
-      let lineItems = state.cart.lineitems.filter(el => el.id !== action.lineItem.id)
+      let lineItems = state.cart.lineitems.filter(el => el.id !== action.lineItemId)
       return {...state, cart: {...state.cart, lineitems: lineItems}}
     }
 

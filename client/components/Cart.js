@@ -1,9 +1,9 @@
-import React, {Component} from 'react'
+import React from 'react'
 import {connect} from 'react-redux'
 
 import {Link} from 'react-router-dom'
 
-import CartCard from './CartCard'
+import {CartCard} from './index'
 
 const Cart = props => {
 
@@ -16,6 +16,7 @@ const Cart = props => {
                 { cart.lineitems ? cart.lineitems.map(lineitem => <CartCard key={lineitem.id} lineitem={lineitem} />) : null }
             </div>
             <h5>Total: {total}</h5>
+            <Link to="/checkout"><button type="button">Checkout Order</button></Link>
         </div>
     )
 }
