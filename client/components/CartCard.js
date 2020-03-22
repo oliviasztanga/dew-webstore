@@ -47,7 +47,7 @@ class CartCard extends Component {
                 <div>
                     <form onSubmit={this.handleSubmit}>
                         <input type="number" name="quantity" min="0" value={this.state.quantity} onChange={this.handleChange}/>
-                        <button type="submit">Edit</button>
+                        <button type="submit">Save quantity</button>
                         <button type="button" onClick={() => removeLineItem(lineitem.id)}>Remove</button>
                     </form>
                 </div>

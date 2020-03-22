@@ -92,8 +92,8 @@ export const logout = () => async dispatch => {
 
 export const editUser = formData => async dispatch => {
   try {
-    const user = await axios.post(`${url}/api/profile/edit`, formData)
-    dispatch(editedUser(user))
+    const {data} = await axios.post(`${url}/api/profile/edit`, formData)
+    dispatch(editedUser(data))
   } catch (error) {
     console.error(error)
   }
