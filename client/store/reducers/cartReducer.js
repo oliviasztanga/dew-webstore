@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 import axios from 'axios'
 
 // const url = 'http://dew-backend.herokuapp.com'
@@ -5,7 +6,7 @@ const url = 'http://localhost:3000'
 
 // INITIAL STATE
 const initialState = {
-  cart: [],
+  cart: {},
   total: 0,
   confirmationNumber: ''
 }
@@ -13,7 +14,8 @@ const initialState = {
 // ACTION TYPES
 const GOT_CART = 'GOT_CART'
 const UPDATE_TOTAL = 'UPDATE_TOTAL'
-const ADDED_OR_EDITED_LINEITEM = 'ADDED_OR_EDITED_LINEITEM'
+const ADDED_LINEITEM = 'ADDED_LINEITEM'
+const EDITED_LINEITEM = 'EDITED_LINEITEM'
 const REMOVED_LINEITEM = 'REMOVED_LINEITEM'
 const CHECKED_OUT = 'CHECKED_OUT'
 const REMOVE_CONFIRMATION_NUMBER = 'REMOVE_CONFIRMATION_NUMBER'
@@ -29,8 +31,13 @@ export const updateTotal = () => ({
   type: UPDATE_TOTAL
 })
 
-const addedOrEditedLineItem = lineItem => ({
-  type: ADDED_OR_EDITED_LINEITEM,
+const addedLineItem = lineItem => ({
+  type: ADDED_LINEITEM,
+  lineItem
+})
+
+const editedLineItem = lineItem => ({
+  type: EDITED_LINEITEM,
   lineItem
 })
 
@@ -54,24 +61,29 @@ export const removeConfirmationNumber = () => ({
 export const getCart = () => async dispatch => {
   const {data} = await axios.get(`${url}/api/cart`)
   dispatch(gotCart(data))
+  dispatch(updateTotal())
 }
 
-export const addOrEditLineItem = (
-  orderId,
-  optionId,
-  quantity
-) => async dispatch => {
-  const {data} = await axios.put(`${url}/api/cart`, {
-    orderId,
-    optionId,
-    quantity
-  })
-  dispatch(addedOrEditedLineItem(data))
+export const addLineItem = (orderId, optionId, quantity) => async dispatch => {
+  quantity = Number(quantity)
+  const {data} = await axios.post(`${url}/api/cart`, {orderId, optionId, quantity})
+  console.log('here', data)
+  dispatch(addedLineItem(data))
+  dispatch(updateTotal())
+}
+
+export const editLineItem = (orderId, optionId, quantity) => async dispatch => {
+  quantity = Number(quantity)
+  const {data} = await axios.put(`${url}/api/cart`, {orderId, optionId, quantity})
+  if (data.deleted) dispatch(removedLineItem(data))
+  else dispatch(editedLineItem(data))
+  dispatch(updateTotal())
 }
 
 export const removeLineItem = (orderId, optionId) => async dispatch => {
   const {data} = await axios.delete(`${url}/api/cart`, {orderId, optionId})
   dispatch(removedLineItem(data))
+  dispatch(updateTotal())
 }
 
 // GOING TO NEED TO ADD FORM DATA HERE
@@ -89,22 +101,29 @@ export default (state = initialState, action) => {
       return {...state, cart: action.cart}
 
     case UPDATE_TOTAL: {
-      let cart = [...state.cart]
-      const total = cart.reduce((sum, lineItem) => sum + lineItem.subtotal)
+      let lineItems = [...state.cart.lineitems]
+      const total = lineItems.reduce((sum, lineItem) => sum + Number(lineItem.subtotal), 0).toFixed(2)
       return {...state, total}
     }
 
-    case ADDED_OR_EDITED_LINEITEM: {
-      let cart = [...state.cart]
-      const searchIdx = cart.findIndex(el => el.id === action.lineItem.id)
-      if (searchIdx) cart[searchIdx] = action.lineItem
-      else cart.push(action.lineItem)
-      return {...state, cart}
+    case ADDED_LINEITEM: {
+      let lineItems = [...state.cart.lineitems]
+      const searchIdx = lineItems.findIndex(el => el.id === action.lineItem.id)
+      if (searchIdx === -1) lineItems.push(action.lineItem)
+      else lineItems[searchIdx] = action.lineItem
+      return {...state, cart: {...state.cart, lineitems: lineItems}}
+    }
+
+    case EDITED_LINEITEM: {
+      let lineItems = [...state.cart.lineitems]
+      const searchIdx = lineItems.findIndex(el => el.id === action.lineItem.id)
+      lineItems[searchIdx] = action.lineItem
+      return {...state, cart: {...state.cart, lineitems: lineItems}}
     }
 
     case REMOVED_LINEITEM: {
-      let cart = state.cart.filter(el => el.id !== action.lineItem.id)
-      return {...state, cart}
+      let lineItems = state.cart.lineitems.filter(el => el.id !== action.lineItem.id)
+      return {...state, cart: {...state.cart, lineitems: lineItems}}
     }
 
     case CHECKED_OUT:

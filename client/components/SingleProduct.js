@@ -1,29 +1,55 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 
-// import {getSingleItem, removeSelectedItem} from '../store/reducers/productsReducer'
+import {getSingleProduct, removeSelectedProduct} from '../store/reducers/productsReducer'
+import {addLineItem} from '../store/reducers/cartReducer'
 
 class SingleProduct extends Component {
+  constructor() {
+    super()
+    this.state = {
+      quantity: 1
+    }
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
   componentDidMount() {
-    // this.props.getSingleItem(this.props.match.params.id)
+    this.props.getSingleProduct(this.props.match.params.id)
   }
 
   componentWillUnmount() {
-    // this.props.removeSelectedItem()
+    this.props.removeSelectedProduct()
+  }
+
+  handleChange (event) {
+    if (event.target.value > this.props.product.stock) event.target.value = this.props.product.stock
+    this.setState({
+      [event.target.name]: event.target.value
+    })
+  }
+
+  handleSubmit (event) {
+    event.preventDefault()
+    this.props.addLineItem(this.props.cartId, this.props.product.id, this.state.quantity)
   }
 
   render() {
-    if (this.props.item.id) {
+    if (this.props.product.id) {
+      const {product} = this.props
       return (
         <div>
           <img
-            src={`https://dew-backend.herokuapp.com/${
-              this.props.item.photos[0]
-            }`}
+            src={`https://dew-backend.herokuapp.com/images/${product.photos[0]}`}
           />
-          <h3>{this.props.item.color}</h3>
-          <h4>{this.props.item.item.name}</h4>
-          <p>{this.props.item.price}</p>
+          <h3>{product.color}</h3>
+          <h4>{product.product.name}</h4>
+          <p>{product.price}</p>
+
+          <form onSubmit={this.handleSubmit}>
+            <input type="number" name="quantity" min="1" value={this.state.quantity} onChange={this.handleChange}/>
+            <button type="submit">Add to Cart</button>
+          </form>
         </div>
       )
     } else return null
@@ -31,12 +57,14 @@ class SingleProduct extends Component {
 }
 
 const mapStateToProps = state => ({
-  // item: state.itemsReducer.selectedItem
+  product: state.productsReducer.selectedProduct,
+  cartId: state.cartReducer.cart.id
 })
 
 const mapDispatchToProps = dispatch => ({
-  // getSingleItem: id => dispatch(getSingleItem(id)),
-  // removeSelectedItem: () => dispatch(removeSelectedItem())
+  getSingleProduct: id => dispatch(getSingleProduct(id)),
+  removeSelectedProduct: () => dispatch(removeSelectedProduct()),
+  addLineItem: (orderId, optionId, quantity) => dispatch(addLineItem(orderId, optionId, quantity))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SingleProduct)

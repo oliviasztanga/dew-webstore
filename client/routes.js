@@ -8,16 +8,18 @@ import {
   Signup,
   Navbar,
   AllProducts,
-  SingleProduct
-  // Cart
+  SingleProduct,
+  Cart
 } from './components/index'
 
 import {me} from './store/reducers/userReducer'
+import {getCart} from './store/reducers/cartReducer'
 import {getAllProducts} from './store/reducers/productsReducer'
 
 class Routes extends Component {
   componentDidMount() {
     this.props.getLogInData()
+    this.props.getCart()
     this.props.getAllProducts()
   }
 
@@ -29,7 +31,7 @@ class Routes extends Component {
           <Route exact path="/" component={Home} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
-          {/* <Route exact path="/cart" component={Cart} /> */}
+          <Route exact path="/cart" component={Cart} />
           <Route exact path="/:category" component={AllProducts} />
           <Route exact path="/item/:id" component={SingleProduct} />
         </Switch>
@@ -43,8 +45,9 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  getLogInData: () => dispatch(me())
-  // getAllProducts: () => dispatch(getAllProducts())
+  getLogInData: () => dispatch(me()),
+  getCart: () => dispatch(getCart()),
+  getAllProducts: () => dispatch(getAllProducts())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Routes)

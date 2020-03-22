@@ -5,24 +5,19 @@ import {NotFound, ProductCard} from './index'
 
 const AllProducts = props => {
   const category = props.match.params.category
-  const isFound = ['all', 'eyes', 'lips', 'face', 'lashes & brows'].includes(
-    category
-  )
+  const isFound = ['all', 'eyes', 'lips', 'face', 'lashes & brows'].includes(category)
   if (isFound) {
-    const itemsToList =
-      category === 'all'
-        ? props.allItems
-        : props.allItems.filter(item => item.item.category === category)
+    const productsToList = category === 'all' ? props.allProducts : props.allProducts.filter(product => product.product.category === category)
     return (
       <div>
-        {itemsToList.map(item => <ProductCard key={item.id} item={item} />)}
+        {productsToList.map(product => <ProductCard key={product.id} product={product} />)}
       </div>
     )
   } else return <NotFound />
 }
 
 const mapStateToProps = state => ({
-  allItems: state.itemsReducer.allItems
+  allProducts: state.productsReducer.allProducts
 })
 
 export default connect(mapStateToProps)(AllProducts)
