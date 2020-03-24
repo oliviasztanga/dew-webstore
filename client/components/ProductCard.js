@@ -3,16 +3,19 @@ import {Link} from 'react-router-dom'
 
 const ProductCard = props => {
   return (
-    <div>
+    <div className="card border-0 rounded-0 text-center mx-5 product-card d-flex justify-content-end">
       <Link to={`/item/${props.product.id}`}>
-        <img
-          src={`https://dew-backend.herokuapp.com/images/${
-            props.product.photos[0]
-          }`}
-        />
-        <h3>{props.product.color}</h3>
-        <h4>{props.product.product.name}</h4>
-        <p>{props.product.price}</p>
+        <img className="card-img-top p-3"
+            src={`https://dew-backend.herokuapp.com/images/${
+              props.product.photos[0]
+            }`
+          }
+          />
+        <div>
+          <p className="my-0 font-weight-bold">{props.product.product.name}</p>
+          <p className="my-0">{props.product.color}</p>
+          <p className="my-0">${props.product.price}</p>
+        </div>
       </Link>
     </div>
   )

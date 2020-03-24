@@ -1,25 +1,13 @@
-body {
-  font-family: sans-serif;
+.dropdown-menu {
+  right: 0 !important;
+  left: auto !important;
+}
+
+.product-card img:hover {
+  opacity: 0.5;
 }
 
 a {
-  text-decoration: none;
-}
-
-label {
-  display: block;
-}
-
-nav a {
-  display: inline-block;
-  margin: 1em;
-}
-
-form div {
-  margin: 1em;
-  display: inline-block;
-}
-
-img {
-  width: 150px
+  color: #343a40 !important;
+  text-decoration: none !important;
 }

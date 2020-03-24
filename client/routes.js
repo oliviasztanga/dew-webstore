@@ -8,11 +8,13 @@ import {
   Signup,
   Profile,
   Navbar,
+  Footer,
   AllProducts,
   SingleProduct,
   Cart,
   Checkout
 } from './components/index'
+import ScrollToTop from './scrollToTop'
 
 import {me} from './store/reducers/userReducer'
 import {getCart} from './store/reducers/cartReducer'
@@ -28,6 +30,7 @@ class Routes extends Component {
   render() {
     return (
       <Router>
+        <ScrollToTop>
         <Navbar />
         <Switch>
           <Route exact path="/" component={Home} />
@@ -39,6 +42,8 @@ class Routes extends Component {
           <Route exact path="/:category" component={AllProducts} />
           <Route exact path="/item/:id" component={SingleProduct} />
         </Switch>
+        <Footer />
+        </ScrollToTop>
       </Router>
     )
   }

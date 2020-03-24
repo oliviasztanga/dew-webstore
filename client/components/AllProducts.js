@@ -9,8 +9,11 @@ const AllProducts = props => {
   if (isFound) {
     const productsToList = category === 'all' ? props.allProducts : props.allProducts.filter(product => product.product.category === category)
     return (
-      <div>
-        {productsToList.map(product => <ProductCard key={product.id} product={product} />)}
+      <div className="container my-4">
+        <h3 >{category} products</h3>
+        <div className="row row-cols-md-3">
+          {productsToList.map(product => <div key={product.id} className="col"><ProductCard product={product} /></div>)}
+        </div>
       </div>
     )
   } else return <NotFound />
