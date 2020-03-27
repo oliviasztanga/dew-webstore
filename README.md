@@ -21,4 +21,4 @@ npm run start-dev
 
 ```
 ## Screenshots
-
+![screencap](https://github.com/oliviasztanga/dew-backend/blob/master/screenshots/screencapture.gif?raw=true)
