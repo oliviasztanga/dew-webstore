@@ -18,8 +18,14 @@ const Home = props => {
         <p>Dew is a new approach to beauty. It's about fun, freedom, and simplicity.</p>
       </div>
       <div className="jumbotron bg-white text-center">
-        <div className="card-deck">
-          {featuredProducts.map(product => <ProductCard product={product} />)}
+        <div className="row row-cols-xl-3">
+          {featuredProducts.map(product => {
+            return (
+              <div key={product.id} className="col-sm-4">
+                <ProductCard product={product} />
+              </div>
+            )
+          })}
         </div>
         <Link to="/all"><button type="button" className="btn btn-light rounded-0 mt-5">Shop Now</button></Link>
       </div>

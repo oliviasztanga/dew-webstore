@@ -1,13 +1,38 @@
+a {
+  color: #343a40 !important;
+  text-decoration: none !important;
+}
+
+.main {
+  position: relative;
+  top: 56px;
+}
+
 .dropdown-menu {
   right: 0 !important;
   left: auto !important;
+}
+
+.product-card {
+  width: 300px;
+}
+
+.product-card img {
+  height: 250px;
+  width: auto;
 }
 
 .product-card img:hover {
   opacity: 0.5;
 }
 
-a {
-  color: #343a40 !important;
-  text-decoration: none !important;
+.overlay-text {
+  z-index: 100;
+  position: relative;
+  top: 50%;
+  text-shadow: 1px 1px 3px #292b2c;
+}
+
+.brand-pink {
+  background-color: #e1ccc9;
 }

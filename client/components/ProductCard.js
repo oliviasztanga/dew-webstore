@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom'
 
 const ProductCard = props => {
   return (
-    <div className="card border-0 rounded-0 text-center mx-5 product-card d-flex justify-content-end">
+    <div className="product-card card border-0 rounded-0 flex-shrink-0 mx-auto text-center">
       <Link to={`/item/${props.product.id}`}>
         <img className="card-img-top p-3"
             src={`https://dew-backend.herokuapp.com/images/${

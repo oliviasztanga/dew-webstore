@@ -8,12 +8,12 @@ import {logout} from '../store/reducers/userReducer'
 const Navbar = props => {
   const {isLoggedIn} = props
   return (
-    <nav className="navbar navbar-expand-lg static-top navbar-light bg-light">
-      <div className="col-md-3">
+    <nav className="navbar navbar-expand-md fixed-top d-flex justify-content-between navbar-light bg-light">
+      <div className="">
         <Link to="/" className="navbar-brand">dew</Link>
       </div>
-      <div className="col-md-6">
-        <ul className="navbar-nav justify-content-center">
+      <div className="">
+        <ul className="navbar-nav">
           <li className="nav-link mx-3"><Link to="/all">All</Link></li>
           <li className="nav-link mx-3"><Link to="/eyes">Eyes</Link></li>
           <li className="nav-link mx-3"><Link to="/lips">Lips</Link></li>
@@ -21,8 +21,8 @@ const Navbar = props => {
           <li className="nav-link mx-3"><Link to="/lashes%20&%20brows">Lashes & Brows</Link></li>
         </ul>
       </div>
-      <div className="col-md-3">
-        <ul className="navbar-nav justify-content-end">
+      <div className="">
+        <ul className="navbar-nav">
           <li className="nav-item dropdown dropdown-menu-left">
             <a className="nav-link dropdown-toggle text-secondary" id="navbarDropdown" role="button" data-toggle="dropdown" >
               <svg className="bi bi-person text-secondary" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">

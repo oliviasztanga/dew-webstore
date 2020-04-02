@@ -31,18 +31,20 @@ class Routes extends Component {
     return (
       <Router>
         <ScrollToTop>
-        <Navbar />
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/signup" component={Signup} />
-          <Route exact path="/profile" component={Profile} />
-          <Route exact path="/cart" component={Cart} />
-          <Route exact path="/checkout" component={Checkout} />
-          <Route exact path="/:category" component={AllProducts} />
-          <Route exact path="/item/:id" component={SingleProduct} />
-        </Switch>
-        <Footer />
+          <Navbar />
+          <div className="main">
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route exact path="/login" component={Login} />
+              <Route exact path="/signup" component={Signup} />
+              <Route exact path="/profile" component={Profile} />
+              <Route exact path="/cart" component={Cart} />
+              <Route exact path="/checkout" component={Checkout} />
+              <Route exact path="/:category" component={AllProducts} />
+              <Route exact path="/item/:id" component={SingleProduct} />
+            </Switch>
+            <Footer />
+          </div>
         </ScrollToTop>
       </Router>
     )

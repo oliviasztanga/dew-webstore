@@ -36,20 +36,31 @@ class CartCard extends Component {
     render () {
         const {lineitem, removeLineItem} = this.props
         return (
-            <div>
-                <Link to={`/item/${lineitem.option.id}`}>
-                    <div>
-                        <img src={`https://dew-backend.herokuapp.com/images/${lineitem.option.photos[0]}`} />
-                        <h3>{lineitem.option.color}</h3>
-                        <h4>{lineitem.option.product.name}</h4>
+            <div className="row">
+                <div className="col-12 col-md-4">
+                    <Link to={`/item/${lineitem.option.id}`}>
+                        <div>
+                            <img className="img-fluid" src={`https://dew-backend.herokuapp.com/images/${lineitem.option.photos[0]}`} />
+                        </div>
+                    </Link>
+                </div>
+                <div className="col d-flex flex-column justify-content-center ml-4">
+                    <div className="mb-2">
+                        <h4>{lineitem.option.color}</h4>
+                        <h5>{lineitem.option.product.name}</h5>
+                        <p>{lineitem.option.price}</p>
                     </div>
-                </Link>
-                <div>
-                    <form onSubmit={this.handleSubmit}>
-                        <input type="number" name="quantity" min="0" value={this.state.quantity} onChange={this.handleChange}/>
-                        <button type="submit">Save quantity</button>
-                        <button type="button" onClick={() => removeLineItem(lineitem.id)}>Remove</button>
-                    </form>
+                    <div>
+                        <form className="form-inline" onSubmit={this.handleSubmit}>
+                            <div className="form-group">
+                                <div className="d-flex flex-row justify-content-start align-items-center flex-wrap">
+                                    <input className="form-control mr-2 mb-2" type="number" name="quantity" min="0" value={this.state.quantity} onChange={this.handleChange}/>
+                                    <button className="btn btn-light mr-2 mb-2 flex-shrink-0"  type="submit">Save Quantity</button>
+                                    <button className="btn btn-light mb-2 flex-shrink-0" type="button" onClick={() => removeLineItem(lineitem.id)}>Remove</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         )
