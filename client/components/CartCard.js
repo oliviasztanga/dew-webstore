@@ -40,7 +40,7 @@ class CartCard extends Component {
                 <div className="col-12 col-md-4">
                     <Link to={`/item/${lineitem.option.id}`}>
                         <div>
-                            <img className="img-fluid" src={`https://dew-backend.herokuapp.com/images/${lineitem.option.photos[0]}`} />
+                            <img className="img-fluid" src={`http://localhost:3000/images/${lineitem.option.photos[0]}`} />
                         </div>
                     </Link>
                 </div>

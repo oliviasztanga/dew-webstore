@@ -1,7 +1,6 @@
 import axios from 'axios'
 axios.defaults.withCredentials = true
 
-// const url = 'http://dew-backend.herokuapp.com'
 const url = 'http://localhost:3000'
 
 // INITIAL STATE

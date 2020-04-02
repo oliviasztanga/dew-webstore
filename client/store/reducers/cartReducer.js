@@ -1,7 +1,6 @@
 /* eslint-disable complexity */
 import axios from 'axios'
 
-// const url = 'http://dew-backend.herokuapp.com'
 const url = 'http://localhost:3000'
 
 // INITIAL STATE

@@ -51,7 +51,7 @@ class SingleProduct extends Component {
               <div className="col-12 col-md-6">
                 <img
                   className="img-fluid"
-                  src={`https://dew-backend.herokuapp.com/images/${product.photos[0]}`
+                  src={`http://localhost:3000/images/${product.photos[0]}`
                 }
                 />
               </div>

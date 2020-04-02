@@ -6,7 +6,7 @@ const ProductCard = props => {
     <div className="product-card card border-0 rounded-0 flex-shrink-0 mx-auto text-center">
       <Link to={`/item/${props.product.id}`}>
         <img className="card-img-top p-3"
-            src={`https://dew-backend.herokuapp.com/images/${
+            src={`http://localhost:3000/images/${
               props.product.photos[0]
             }`
           }

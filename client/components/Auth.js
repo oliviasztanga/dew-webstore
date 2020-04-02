@@ -7,43 +7,48 @@ const AuthForm = props => {
   const {name, displayName, handleSubmit, error} = props
 
   return (
-    <div>
-      <form onSubmit={handleSubmit} name={name}>
+    <div className="container max-width-100 min-vh-100 my-5">
+      <form className="w-50 mx-auto" onSubmit={handleSubmit} name={name}>
         {name === 'signup' ? (
           <div>
-            <div>
+            <div className="form-group">
               <label htmlFor="firstName">
                 <small>First Name</small>
               </label>
-              <input name="firstName" type="text" />
+              <input className="form-control" name="firstName" type="text" />
             </div>
-            <div>
+            <div className="form-group">
               <label htmlFor="lastName">
                 <small>Last Name</small>
               </label>
-              <input name="lastName" type="text" />
+              <input className="form-control" name="lastName" type="text" />
             </div>
           </div>
         ) : null}
 
-        <div>
+        <div className="form-group">
           <label htmlFor="email">
             <small>Email</small>
           </label>
-          <input name="email" type="text" />
+          <input className="form-control" name="email" type="text" />
         </div>
-        <div>
+        <div className="form-group">
           <label htmlFor="password">
             <small>Password</small>
           </label>
-          <input name="password" type="password" />
+          <input className="form-control"  name="password" type="password" />
         </div>
-        <div>
-          <button type="submit">{displayName}</button>
+        <div className="text-center">
+          <button className="btn btn-light" type="submit">{displayName}</button>
         </div>
-        {error && error.response && <div> {error.response.data} </div>}
+        <div className="text-center">
+          <a href="http://localhost:3000/auth/google">{displayName} with Google</a>
+          <div className="m-3">
+            {error && error.response && <div> {error.response.data} </div>}
+          </div>
+        </div>
+
       </form>
-      <a href="http://localhost:3000/auth/google">{displayName} with Google</a>
     </div>
   )
 }
