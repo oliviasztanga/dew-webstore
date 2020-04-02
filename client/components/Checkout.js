@@ -47,23 +47,31 @@ class CartCard extends Component {
             )
         } else {
             return (
-                <div>
-                    <form onSubmit={this.handleSubmit}>
-                        <label htmlFor="recipientFirstName">
-                            <small>Recipient First Name</small>
-                        </label>
-                        <input name="recipientFirstName" type="text" value={this.state.recipientFirstName} onChange={this.handleChange} />
+                <div className="container min-vh-100 my-4">
+                    <form className="w-50 mx-auto" onSubmit={this.handleSubmit}>
+                        <div className="form-group">
+                            <label htmlFor="recipientFirstName">
+                                <small>Recipient First Name</small>
+                            </label>
+                            <input className="form-control" name="recipientFirstName" type="text" value={this.state.recipientFirstName} onChange={this.handleChange} />
+                        </div>
                         
-                        <label htmlFor="recipientLastName">
-                            <small>Recipient Last Name</small>
-                        </label>
-                        <input name="recipientLastName" type="text" value={this.state.recipientLastName} onChange={this.handleChange} />
+                        <div className="form-group">
+                            <label htmlFor="recipientLastName">
+                                <small>Recipient Last Name</small>
+                            </label>
+                            <input className="form-control" name="recipientLastName" type="text" value={this.state.recipientLastName} onChange={this.handleChange} />
+                        </div>
                         
-                        <label htmlFor="recipientAddress">
-                            <small>Recipient Address</small>
-                        </label>
-                        <input name="recipientAddress" type="text" value={this.state.recipientAddress} onChange={this.handleChange} />
-                        <button type="submit">Complete Order</button>
+                        <div className="form-group">
+                            <label htmlFor="recipientAddress">
+                                <small>Recipient Address</small>
+                            </label>
+                            <input className="form-control" name="recipientAddress" type="text" value={this.state.recipientAddress} onChange={this.handleChange} />
+                        </div>
+                        <div className="text-center">
+                            <button className="btn btn-light" type="submit">Complete Order</button>
+                        </div>
                     </form>
                 </div>
             )

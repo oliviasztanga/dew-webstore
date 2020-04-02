@@ -43,29 +43,45 @@ class UserData extends Component {
     render() {
         const {orders} = this.props
         return (
-            <div>
-                <form onSubmit={this.handleSubmit}>
-                    <label htmlFor="firstName">
-                        <small>First Name</small>
-                    </label>
-                    <input name="firstName" type="text" value={this.state.firstName || ''} onChange={this.handleChange} />
-
-                    <label htmlFor="lastName">
-                        <small>Last Name</small>
-                    </label>
-                    <input name="lastName" type="text" value={this.state.lastName || ''} onChange={this.handleChange} />
-
-                    <label htmlFor="email">
-                        <small>Email</small>
-                    </label>
-                    <input name="email" type="text" value={this.state.email || ''} onChange={this.handleChange} />
-
-                    <button type="submit">Save</button>
-                </form>
-                <div>
-                    <h3>Past Orders:</h3>
-                    <div>
-                        {orders.map(order => <PastOrder key={order.id} order={order} />)}
+            <div className="container max-width-100 min-vh-100 my-5">
+                <div className="row">
+                    <div className="col-12 col-md-6 px-5 mx-5">
+                        <h3 className="mb-3">Shopper Information:</h3>
+                        <form onSubmit={this.handleSubmit}>
+                            <div className="form-group">
+                                <label htmlFor="firstName">
+                                    <small>First Name</small>
+                                </label>
+                                <input className="form-control" name="firstName" type="text" value={this.state.firstName || ''} onChange={this.handleChange} />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="lastName">
+                                    <small>Last Name</small>
+                                </label>
+                                <input className="form-control" name="lastName" type="text" value={this.state.lastName || ''} onChange={this.handleChange} />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="email">
+                                    <small>Email</small>
+                                </label>
+                                <input className="form-control" name="email" type="text" value={this.state.email || ''} onChange={this.handleChange} />
+                            </div>
+                            <button className="btn btn-light" type="submit">Save</button>
+                        </form>
+                    </div>
+                    <div className="col">
+                        <h3 className="mb-3">Past Orders:</h3>
+                        <div>
+                            <ul className="list-group">
+                                {orders.map(order => {
+                                    return (
+                                        <li className="list-group-item" key={order.id}>
+                                            <PastOrder order={order} />
+                                        </li>
+                                    )
+                                })}
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -92,7 +108,7 @@ const PastOrder = props => {
     const total = order.lineitems.reduce((sum, lineitem) => sum + Number(lineitem.subtotal), 0).toFixed(2)
     return (
         <div>
-            <p>Date: {date}</p>
+            <p className="font-weight-bold">{date}</p>
             <p>Total: ${total}</p>
 
         </div>
