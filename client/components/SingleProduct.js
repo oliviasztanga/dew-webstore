@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 import {getSingleProduct, removeSelectedProduct} from '../store/reducers/productsReducer'
 import {addLineItem} from '../store/reducers/cartReducer'
@@ -14,7 +16,7 @@ class SingleProduct extends Component {
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
-
+  
   componentDidMount() {
     this.props.getSingleProduct(this.props.match.params.id)
   }
@@ -33,6 +35,7 @@ class SingleProduct extends Component {
   handleSubmit (event) {
     event.preventDefault()
     this.props.addLineItem(this.props.cartId, this.props.product.id, this.state.quantity)
+    toast('Item added!   💧')
   }
 
   render() {

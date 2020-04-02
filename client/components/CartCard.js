@@ -1,9 +1,11 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-
 import {Link} from 'react-router-dom'
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 import {editLineItem, removeLineItem} from '../store/reducers/cartReducer'
+
 
 class CartCard extends Component {
     constructor() {
@@ -31,6 +33,7 @@ class CartCard extends Component {
     handleSubmit (event) {
         event.preventDefault()
         this.props.editLineItem(this.props.cartId, this.props.lineitem.option.id, this.state.quantity)
+        toast('Quantity changed!   💧')
     }
 
     render () {

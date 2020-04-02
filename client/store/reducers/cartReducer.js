@@ -66,7 +66,6 @@ export const getCart = () => async dispatch => {
 export const addLineItem = (orderId, optionId, quantity) => async dispatch => {
   quantity = Number(quantity)
   const {data} = await axios.post(`${url}/api/cart`, {orderId, optionId, quantity})
-  console.log('here', data)
   dispatch(addedLineItem(data))
   dispatch(updateTotal())
 }
@@ -74,7 +73,8 @@ export const addLineItem = (orderId, optionId, quantity) => async dispatch => {
 export const editLineItem = (orderId, optionId, quantity) => async dispatch => {
   quantity = Number(quantity)
   const {data} = await axios.put(`${url}/api/cart`, {orderId, optionId, quantity})
-  if (data.deleted) dispatch(removedLineItem(data))
+  console.log(data)
+  if (data.deleted) dispatch(removedLineItem(data.id))
   else dispatch(editedLineItem(data))
   dispatch(updateTotal())
 }

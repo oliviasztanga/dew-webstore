@@ -1,6 +1,12 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
+import { toast } from 'react-toastify'
+
+toast.configure({
+  autoClose: 2000,
+  position: toast.POSITION.BOTTOM_RIGHT
+})
 
 import {
   Home,
