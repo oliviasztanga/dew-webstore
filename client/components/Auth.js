@@ -1,11 +1,11 @@
 import React from 'react'
 import {connect} from 'react-redux'
-
+import {Redirect} from 'react-router-dom'
 import {login, signup} from '../store/reducers/userReducer'
 
 const AuthForm = props => {
   const {name, displayName, handleSubmit, error} = props
-
+  if (props.user.id) props.history.push('/')
   return (
     <div className="container max-width-100 min-vh-100 my-5">
       <form className="w-50 mx-auto" onSubmit={handleSubmit} name={name}>
@@ -57,7 +57,8 @@ const mapStateToPropsLogin = state => {
   return {
     name: 'login',
     displayName: 'Login',
-    error: state.user.error
+    error: state.user.error,
+    user: state.user
   }
 }
 
@@ -76,7 +77,8 @@ const mapStateToPropsSignup = state => {
   return {
     name: 'signup',
     displayName: 'Sign Up',
-    error: state.user.error
+    error: state.user.error,
+    user: state.user
   }
 }
 
