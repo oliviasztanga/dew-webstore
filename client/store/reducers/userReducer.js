@@ -1,8 +1,6 @@
 import axios from 'axios'
 axios.defaults.withCredentials = true
 
-const url = 'http://localhost:3000'
-
 // INITIAL STATE
 const initialState = {}
 
@@ -37,7 +35,7 @@ const editedUser = user => ({
 
 export const me = () => async dispatch => {
   try {
-    const {data} = await axios.get(`${url}/auth/me`)
+    const {data} = await axios.get(`/auth/me`)
     dispatch(gotUser(data || initialState))
   } catch (error) {
     console.error(error)
@@ -48,7 +46,7 @@ export const login = (email, password) => async dispatch => {
   let user
 
   try {
-    const {data} = await axios.post(`${url}/auth/login`, {email, password})
+    const {data} = await axios.post(`/auth/login`, {email, password})
     user = data
   } catch (error) {
     return dispatch(gotUser({error}))
@@ -68,7 +66,7 @@ export const signup = (
   password
 ) => async dispatch => {
   try {
-    const {data} = await axios.post(`${url}/auth/signup`, {
+    const {data} = await axios.post(`/auth/signup`, {
       email,
       password,
       firstName,
@@ -82,7 +80,7 @@ export const signup = (
 
 export const logout = () => async dispatch => {
   try {
-    await axios.post(`${url}/auth/logout`)
+    await axios.post(`/auth/logout`)
     dispatch(removedUser())
   } catch (error) {
     console.error(error)
@@ -91,7 +89,7 @@ export const logout = () => async dispatch => {
 
 export const editUser = formData => async dispatch => {
   try {
-    const {data} = await axios.post(`${url}/api/profile/edit`, formData)
+    const {data} = await axios.post(`/api/profile/edit`, formData)
     dispatch(editedUser(data))
   } catch (error) {
     console.error(error)

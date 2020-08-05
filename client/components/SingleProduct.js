@@ -67,10 +67,7 @@ class SingleProduct extends Component {
           </nav>
           <div className="row py-5">
             <div className="col-12 col-md-6">
-              <img
-                className="img-fluid"
-                src={`http://localhost:3000/images/${product.photos[0]}`}
-              />
+              <img className="img-fluid" src={`/images/${product.photos[0]}`} />
             </div>
             <div className="col d-flex flex-column justify-content-center ml-4">
               <div className="mb-5">

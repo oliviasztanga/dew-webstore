@@ -1,8 +1,6 @@
 /* eslint-disable complexity */
 import axios from 'axios'
 
-const url = 'http://localhost:3000'
-
 // INITIAL STATE
 const initialState = {
   cart: {},
@@ -58,14 +56,14 @@ export const removeConfirmationNumber = () => ({
 // THUNKS
 
 export const getCart = () => async dispatch => {
-  const {data} = await axios.get(`${url}/api/cart`)
+  const {data} = await axios.get(`/api/cart`)
   dispatch(gotCart(data))
   dispatch(updateTotal())
 }
 
 export const addLineItem = (orderId, optionId, quantity) => async dispatch => {
   quantity = Number(quantity)
-  const {data} = await axios.post(`${url}/api/cart`, {
+  const {data} = await axios.post(`/api/cart`, {
     orderId,
     optionId,
     quantity
@@ -76,7 +74,7 @@ export const addLineItem = (orderId, optionId, quantity) => async dispatch => {
 
 export const editLineItem = (orderId, optionId, quantity) => async dispatch => {
   quantity = Number(quantity)
-  const {data} = await axios.put(`${url}/api/cart`, {
+  const {data} = await axios.put(`/api/cart`, {
     orderId,
     optionId,
     quantity
@@ -88,7 +86,7 @@ export const editLineItem = (orderId, optionId, quantity) => async dispatch => {
 }
 
 export const removeLineItem = lineItemId => async dispatch => {
-  const {status} = await axios.delete(`${url}/api/cart/${lineItemId}`)
+  const {status} = await axios.delete(`/api/cart/${lineItemId}`)
   if (status === 204) {
     dispatch(removedLineItem(lineItemId))
     dispatch(updateTotal())
@@ -102,7 +100,7 @@ export const checkout = (
   recipientLastName,
   recipientAddress
 ) => async dispatch => {
-  const {data} = await axios.post(`${url}/api/cart/checkout`, {
+  const {data} = await axios.post(`/api/cart/checkout`, {
     orderId,
     recipientFirstName,
     recipientLastName,

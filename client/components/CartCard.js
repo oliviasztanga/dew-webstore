@@ -49,9 +49,7 @@ class CartCard extends Component {
             <div>
               <img
                 className="img-fluid"
-                src={`http://localhost:3000/images/${
-                  lineitem.option.photos[0]
-                }`}
+                src={`/images/${lineitem.option.photos[0]}`}
               />
             </div>
           </Link>

@@ -1,12 +1,11 @@
 import React from 'react'
-import {connect} from 'react-redux'
-
+import {useSelector} from 'react-redux'
 import {Link} from 'react-router-dom'
-
 import {CartCard} from './index'
 
-const Cart = props => {
-  const {cart, total, isLoggedIn} = props
+const Cart = () => {
+  const isLoggedIn = useSelector(state => !!state.user.id)
+  const {cart, total} = useSelector(state => state.cartReducer)
 
   return (
     <div className="container min-vh-100 my-4">
@@ -30,14 +29,7 @@ const Cart = props => {
   )
 }
 
-const mapStateToProps = state => ({
-  isLoggedIn: !!state.user.id,
-  cartId: state.cartReducer.cart.id,
-  cart: state.cartReducer.cart,
-  total: state.cartReducer.total
-})
-
-export default connect(mapStateToProps)(Cart)
+export default Cart
 
 const AuthNudge = () => {
   return (

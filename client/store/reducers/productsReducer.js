@@ -1,7 +1,5 @@
 import axios from 'axios'
 
-const url = 'http://localhost:3000'
-
 // INITIAL STATE
 const initialState = {
   allProducts: [],
@@ -32,7 +30,7 @@ export const removeSelectedProduct = () => ({
 
 export const getAllProducts = () => async dispatch => {
   try {
-    const {data} = await axios.get(`${url}/api/products`)
+    const {data} = await axios.get(`/api/products`)
     dispatch(gotAllProducts(data))
   } catch (error) {
     console.error(error)
@@ -41,7 +39,7 @@ export const getAllProducts = () => async dispatch => {
 
 export const getSingleProduct = id => async dispatch => {
   try {
-    const {data} = await axios.get(`${url}/api/products/${id}`)
+    const {data} = await axios.get(`/api/products/${id}`)
     dispatch(gotSingleProduct(data))
   } catch (error) {
     console.error(error)

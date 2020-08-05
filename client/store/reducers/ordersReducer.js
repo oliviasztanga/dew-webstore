@@ -1,7 +1,5 @@
 import axios from 'axios'
 
-const url = 'http://localhost:3000'
-
 // INITIAL STATE
 const initialState = {
   allOrders: [],
@@ -32,7 +30,7 @@ export const removeSelectedOrder = () => ({
 
 export const getAllOrders = () => async dispatch => {
   try {
-    const {data} = await axios.get(`${url}/api/profile/orders`)
+    const {data} = await axios.get(`/api/profile/orders`)
     dispatch(gotAllOrders(data))
   } catch (error) {
     console.error(error)
@@ -41,7 +39,7 @@ export const getAllOrders = () => async dispatch => {
 
 export const getSingleOrder = id => async dispatch => {
   try {
-    const {data} = await axios.get(`${url}/api/profile/orders/${id}`)
+    const {data} = await axios.get(`/api/profile/orders/${id}`)
     dispatch(gotSingleOrder(data))
   } catch (error) {
     console.error(error)

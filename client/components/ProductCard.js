@@ -7,7 +7,7 @@ const ProductCard = props => {
       <Link to={`/item/${props.product.id}`}>
         <img
           className="card-img-top p-3"
-          src={`http://localhost:3000/images/${props.product.photos[0]}`}
+          src={`/images/${props.product.photos[0]}`}
         />
         <div>
           <p className="my-0 font-weight-bold">{props.product.product.name}</p>

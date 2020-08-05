@@ -13,10 +13,7 @@ const Home = props => {
   return (
     <div>
       <div className="jumbotron bg-white">
-        <img
-          className="img-fluid"
-          src="http://localhost:3000/images/jumbotron.jpg"
-        />
+        <img className="img-fluid" src="/images/jumbotron.jpg" />
       </div>
       <div className="jumbotron bg-light">
         <h3>Beauty inspired by nature.</h3>
