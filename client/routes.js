@@ -1,66 +1,70 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {withRouter, Route, Switch} from 'react-router-dom'
-import PropTypes from 'prop-types'
-import {Login, Signup, UserHome} from './components'
-import {me} from './store'
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
+import {toast} from 'react-toastify'
 
-/**
- * COMPONENT
- */
+toast.configure({
+  autoClose: 2000,
+  position: toast.POSITION.BOTTOM_RIGHT
+})
+
+import {
+  Home,
+  Login,
+  Signup,
+  Profile,
+  Navbar,
+  Footer,
+  AllProducts,
+  SingleProduct,
+  Cart,
+  Checkout
+} from './components/index'
+import ScrollToTop from './scrollToTop'
+
+import {me} from './store/reducers/userReducer'
+import {getCart} from './store/reducers/cartReducer'
+import {getAllProducts} from './store/reducers/productsReducer'
+
 class Routes extends Component {
   componentDidMount() {
-    this.props.loadInitialData()
+    this.props.getLogInData()
+    this.props.getCart()
+    this.props.getAllProducts()
   }
 
   render() {
-    const {isLoggedIn} = this.props
-
     return (
-      <Switch>
-        {/* Routes placed here are available to all visitors */}
-        <Route path="/login" component={Login} />
-        <Route path="/signup" component={Signup} />
-        {isLoggedIn && (
-          <Switch>
-            {/* Routes placed here are only available after logging in */}
-            <Route path="/home" component={UserHome} />
-          </Switch>
-        )}
-        {/* Displays our Login component as a fallback */}
-        <Route component={Login} />
-      </Switch>
+      <Router>
+        <ScrollToTop>
+          <Navbar />
+          <div className="main">
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route exact path="/login" component={Login} />
+              <Route exact path="/signup" component={Signup} />
+              <Route exact path="/profile" component={Profile} />
+              <Route exact path="/cart" component={Cart} />
+              <Route exact path="/checkout" component={Checkout} />
+              <Route exact path="/:category" component={AllProducts} />
+              <Route exact path="/item/:id" component={SingleProduct} />
+            </Switch>
+            <Footer />
+          </div>
+        </ScrollToTop>
+      </Router>
     )
   }
 }
 
-/**
- * CONTAINER
- */
-const mapState = state => {
-  return {
-    // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
-    // Otherwise, state.user will be an empty object, and state.user.id will be falsey
-    isLoggedIn: !!state.user.id
-  }
-}
+const mapStateToProps = state => ({
+  isLoggedIn: !!state.user.id
+})
 
-const mapDispatch = dispatch => {
-  return {
-    loadInitialData() {
-      dispatch(me())
-    }
-  }
-}
+const mapDispatchToProps = dispatch => ({
+  getLogInData: () => dispatch(me()),
+  getCart: () => dispatch(getCart()),
+  getAllProducts: () => dispatch(getAllProducts())
+})
 
-// The `withRouter` wrapper makes sure that updates are not blocked
-// when the url changes
-export default withRouter(connect(mapState, mapDispatch)(Routes))
-
-/**
- * PROP TYPES
- */
-Routes.propTypes = {
-  loadInitialData: PropTypes.func.isRequired,
-  isLoggedIn: PropTypes.bool.isRequired
-}
+export default connect(mapStateToProps, mapDispatchToProps)(Routes)
